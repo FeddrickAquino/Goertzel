@@ -6,6 +6,6 @@
 // #define K 132       // kth bin of interest
 // #define N 256       // N dft-points
 
-double complex goertzelfilter(double data[], int N, int k, int fs);
+double complex goertzelfilter(double data[], double N, int k, double fs);
 
 #endif

@@ -6,7 +6,6 @@
 
 #define K0(K, N) 2*cos(2 * M_PI * K / N)
 
-
 /*
  * Arguments
  * data -> Sampled values from the signal
@@ -17,7 +16,7 @@
 
 //k = Freq_of_interest / (Fs/N_sample)
 
-double complex goertzelfilter(double data[], int N, int k, int fs){
+double complex goertzelfilter(double data[], double N, int k, double fs){
     if(N <= 0) return 0;
 
     int i = 0;
@@ -38,15 +37,10 @@ double complex goertzelfilter(double data[], int N, int k, int fs){
     
     prev1 = prev2;
     // -e^(I * (-2 * M_PI * K /N)) = - (cos(2 * M_PI * K / N) - I * sin(2 * M_PI * K/ N))
-    wkn = cos(2 * M_PI * k / N) - I * sin(2 * M_PI * k/ N);
+    wkn = cos(2 * M_PI * (k  * 1.0)/ N) - I * sin(2 * M_PI * (k  * 1.0)/ N);
 
     // Second half
-    ykn = vn - wkn * prev1;
-
-    printf("vn: %lf + I * %lf\n", creal(xn), cimag(xn));
-    printf("wkn: %lf + I * %lf\n", creal(wkn), cimag(wkn));
-    printf("prev1: %lf + I * %lf\n", creal(prev1), cimag(prev1));
-
+    ykn = (vn - wkn * prev1) * (cos(2 * M_PI * k) - I * sin(2 * M_PI * k));
 
     return ykn;
 }

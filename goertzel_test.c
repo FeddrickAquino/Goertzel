@@ -7,7 +7,7 @@
 
 
 int main(void) {
-  int Fs = 8000;
+  double Fs = 8000;
   int N = 205;
   
   double data[N];
@@ -25,12 +25,12 @@ int main(void) {
   }
 
   for(int i = 0; i < 7; i++){
-    ks[i] = round(freqs[i] * (N * 1.0)/Fs) + 1;
+    ks[i] = round(freqs[i] * N/Fs) + 1;
     // printf("%d\n", ks[i]);
   }
 
   for(int i = 0; i< 7; i++){
-    resultsC[i] = goertzelfilter(data, N, ks[i], Fs);
+    resultsC[i] = goertzelfilter(data, (double)N, ks[i], Fs);
     results[i] = cabs(resultsC[i]);
   }
 
